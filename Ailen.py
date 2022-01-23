@@ -1,10 +1,10 @@
 import pygame
 from gun import Gun
 import controls
+import center_window
 
 
 def run(type_fons, type_guns):
-
     pygame.init()
     w = 700
     h = 900
@@ -21,6 +21,3 @@ def run(type_fons, type_guns):
         DISPLAYSURF.blit(fon, (-100, -300))
         gun.output()
         pygame.display.flip()
-
-
-run("дизайн/задний фон/_1.jpg", "дизайн/оружие/blue gun.png")
