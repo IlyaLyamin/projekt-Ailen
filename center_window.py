@@ -36,6 +36,25 @@ def first_window():
     chose_skin_sprite.rect.y = 420
     all_btn_sprites.add(chose_skin_sprite)
 
+    # добавление кнопки колонки
+    music_on_sprite = pygame.sprite.Sprite()
+    music_on_sprite.image = pygame.image.load("дизайн/главное окно/люченный динамик.png")
+    music_on_sprite.rect = music_on_sprite.image.get_rect()
+    music_on_sprite.rect.x = 20
+    music_on_sprite.rect.y = 20
+
+    turn_of_dinamik = pygame.sprite.Sprite()
+    turn_of_dinamik.image = pygame.image.load("дизайн/главное окно/выключенный динамик.png")
+    turn_of_dinamik.rect = turn_of_dinamik.image.get_rect()
+    turn_of_dinamik.rect.x = 20
+    turn_of_dinamik.rect.y = 20
+
+    unwatching_din = pygame.sprite.Sprite()
+    unwatching_din.image = pygame.image.load("дизайн/главное окно/чёрная колонка.png")
+    unwatching_din.rect = unwatching_din.image.get_rect()
+    unwatching_din.rect.x = 20
+    unwatching_din.rect.y = 20
+
     # добавление звёзд
     for i in range(150):
         star = pygame.sprite.Sprite(all_star_sprites)
@@ -44,6 +63,12 @@ def first_window():
         star.rect.x = random.randrange(800)
         star.rect.y = random.randrange(800)
 
+    # загружаем музыку
+    vol = 1.0
+    flPause_menu = True
+    pygame.mixer.music.load("музыка/первый уровень.mp3")
+    pygame.mixer.music.play(-1)
+
     while True:
         all_star_sprites.draw(screen)
         all_btn_sprites.draw(screen)
@@ -51,11 +76,29 @@ def first_window():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    if flPause_menu:
+                        pygame.mixer.music.pause()
+                    else:
+                        pygame.mixer.music.unpause()
+                    flPause_menu = not flPause_menu
+                elif event.key == pygame.K_DOWN:
+                    vol -= 0.1
+                    pygame.mixer.music.set_volume(vol)
+                elif event.key == pygame.K_UP:
+                    vol += 0.1
+                    pygame.mixer.music.set_volume(vol)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if 200 < event.pos[0] < 600 and 250 < event.pos[1] < 400:
+                    pygame.mixer.music.stop()
                     Ailen.run("дизайн/задний фон/_1.jpg", "дизайн/оружие/beast.png")
-                    print("ok")
                     sys.exit()
+        screen.blit(unwatching_din.image, unwatching_din.rect)
+        if flPause_menu:
+            screen.blit(music_on_sprite.image, music_on_sprite.rect)
+        else:
+            screen.blit(turn_of_dinamik.image, turn_of_dinamik.rect)
 
         pygame.display.flip()
 
