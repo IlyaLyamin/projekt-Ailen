@@ -5,7 +5,6 @@ import center_window
 
 
 def run(type_fons, type_guns):
-
     pygame.init()
     w = 700
     h = 900

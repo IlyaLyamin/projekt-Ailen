@@ -11,7 +11,6 @@ def first_window():
     # добавление головы инопланетянина
     screen = pygame.display.set_mode((800, 800))
     pygame.display.set_caption("Ailen")
-    DISP_FIRST = pygame.display.set_mode((800, 800))
     fon = pygame.image.load("дизайн/главное окно/инопланетянин.png")
 
     # создание спрайтов
@@ -55,6 +54,12 @@ def first_window():
     unwatching_din.rect.x = 20
     unwatching_din.rect.y = 20
 
+    # надписи
+    lvl_ = pygame.image.load("дизайн/главное окно/lvl.png")
+    lvl = pygame.transform.scale(lvl_, (80, 50))
+    ex_ = pygame.image.load("дизайн/главное окно/ex.png")
+    ex = pygame.transform.scale(ex_, (80, 40))
+
     # добавление звёзд
     for i in range(150):
         star = pygame.sprite.Sprite(all_star_sprites)
@@ -72,7 +77,9 @@ def first_window():
     while True:
         all_star_sprites.draw(screen)
         all_btn_sprites.draw(screen)
-        DISP_FIRST.blit(fon, (300, 50))
+        screen.blit(lvl, (580, 50))
+        screen.blit(fon, (300, 50))
+        screen.blit(ex, (580, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -94,6 +101,10 @@ def first_window():
                     pygame.mixer.music.stop()
                     Ailen.run("дизайн/задний фон/_1.jpg", "дизайн/оружие/beast.png")
                     sys.exit()
+                elif 200 < event.pos[0] < 600 and 420 < event.pos[1] < 620:
+                    screen.fill("black", (0, 0, 800, 800))
+                    control_file.control_window()
+                    return
         screen.blit(unwatching_din.image, unwatching_din.rect)
         if flPause_menu:
             screen.blit(music_on_sprite.image, music_on_sprite.rect)
