@@ -1,6 +1,5 @@
 import pygame
 import sys
-import controls
 import random
 from gun import Gun
 
@@ -51,7 +50,6 @@ def free_run(type_fons, type_guns):
     h = 800
     screen = pygame.display.set_mode((w, h))
     pygame.display.set_caption("Ailen")
-    DISPLAYSURF = pygame.display.set_mode((w, h))
     gun = Gun(screen, type_guns)
     # загрузка изображения
     fon = pygame.image.load(type_fons)
@@ -63,27 +61,42 @@ def free_run(type_fons, type_guns):
     pygame.mixer.music.play(-1)
 
     while True:
-        controls.events(gun)
-        gun.update_gun()
-        DISPLAYSURF.blit(fon, (-100, -300))
-        gun.output()
-        music(screen, Pause)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            ###
+            elif event.type == pygame.KEYDOWN:
+                # вправо
+                if event.key == pygame.K_d:
+                    gun.mright = True
+                # влево
+                elif event.key == pygame.K_a:
+                    gun.mleft = True
+            elif event.type == pygame.KEYUP:
+                # вправо
+                if event.key == pygame.K_d:
+                    gun.mright = False
+                # влево
+                elif event.key == pygame.K_a:
+                    gun.mleft = False
+            ###
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_DOWN:
-                    vol -= 0.1
-                    pygame.mixer.music.set_volume(vol)
-                elif event.key == pygame.K_UP:
-                    vol += 0.1
-                    pygame.mixer.music.set_volume(vol)
-                elif event.key == pygame.K_q:
+                if event.key == pygame.K_q:
                     if Pause:
                         pygame.mixer.music.pause()
                     else:
                         pygame.mixer.music.unpause()
                     Pause = not Pause
+                elif event.key == pygame.K_DOWN:
+                    vol -= 0.1
+                    pygame.mixer.music.set_volume(vol)
+                elif event.key == pygame.K_UP:
+                    vol += 0.1
+                    pygame.mixer.music.set_volume(vol)
+        gun.update_gun()
+        screen.blit(fon, (0, 0))
+        gun.output()
+        music(screen, Pause)
         pygame.display.flip()
 
 
@@ -150,7 +163,7 @@ def control_window():
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if 250 < event.pos[0] < 550 and 650 < event.pos[1] < 750:
-                    free_run("дизайн/задний фон/_1.jpg", "дизайн/оружие/first.png")
+                    free_run("дизайн/задний фон/_1.jpg", "дизайн/оружие/fird.png")
                     sys.exit()
                 elif 750 < event.pos[0] < 790 and 10 < event.pos[1] < 50:
                     first_window()
@@ -237,10 +250,9 @@ def first_window():
                     pass
                 elif 200 < event.pos[0] < 600 and 590 < event.pos[1] < 790:
                     pygame.mixer.music.stop()
-                    control_window()
+                    free_run("дизайн/задний фон/6.jpg", "дизайн/оружие/beast.png")
                     sys.exit()
         music(screen, flPause_menu)
-
         pygame.display.flip()
 
 
