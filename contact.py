@@ -56,12 +56,34 @@ def free_run(type_fons, type_guns):
     # загрузка изображения
     fon = pygame.image.load(type_fons)
 
+    # загружаем музыку
+    vol = 1.0
+    Pause = True
+    pygame.mixer.music.load("музыка/первый уровень.mp3")
+    pygame.mixer.music.play(-1)
+
     while True:
         controls.events(gun)
         gun.update_gun()
         DISPLAYSURF.blit(fon, (-100, -300))
         gun.output()
-        music(screen, True)
+        music(screen, Pause)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_DOWN:
+                    vol -= 0.1
+                    pygame.mixer.music.set_volume(vol)
+                elif event.key == pygame.K_UP:
+                    vol += 0.1
+                    pygame.mixer.music.set_volume(vol)
+                elif event.key == pygame.K_q:
+                    if Pause:
+                        pygame.mixer.music.pause()
+                    else:
+                        pygame.mixer.music.unpause()
+                    Pause = not Pause
         pygame.display.flip()
 
 
