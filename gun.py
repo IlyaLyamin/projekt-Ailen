@@ -26,3 +26,7 @@ class Gun():
         elif self.mleft and self.rect.left > 0:
             self.center -= 1.5
         self.rect.centerx = self.center
+
+    def create_gun(self):
+        # размещвет пушку по центру внизу
+        self.center = self.screen_rect.centerx
