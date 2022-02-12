@@ -16,10 +16,12 @@ def event_menu(screen):
                 music.draw_unpause(screen)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if 200 < event.pos[0] < 600 and 250 < event.pos[1] < 400:  # play
-                pass
-            elif 200 < event.pos[0] < 600 and 420 < event.pos[1] < 620:  # choose skin
-                pass
-            elif 200 < event.pos[0] < 600 and 590 < event.pos[1] < 790:
+                import _1_lvl
+                _1_lvl._1_lvl()
+            elif 200 < event.pos[0] < 600 and 420 < event.pos[1] < 570:  # choose skin
+                import choose_skin_window
+                choose_skin_window.create_choose_skin_window()
+            elif 200 < event.pos[0] < 600 and 590 < event.pos[1] < 740:
                 pygame.mixer.music.stop()
                 control_window()
                 sys.exit()

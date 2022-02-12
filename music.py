@@ -9,12 +9,9 @@ def start_music(num):
         pygame.mixer.music.load("музыка/первый уровень.mp3")
         pygame.mixer.music.play(-1)
     if num == 2:
-        pass
+        pygame.mixer.music.load("музыка/сюжет_1.mp3")
+        pygame.mixer.music.play(-1)
     if num == 3:
-        pass
-    if num == 4:
-        pass
-    if num == 5:
         pass
 
 

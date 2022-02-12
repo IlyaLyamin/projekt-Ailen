@@ -2,11 +2,11 @@ import pygame
 
 from all_sprit import stars
 import music
-from controls_for_free_play import events_free_play, update, update_bullets, create_arm
+from controls_for_free_play import events_free_play, update, update_bullets
 from controls_for_free_play import update_inos
 from gun import Gun
 from pygame.sprite import Group
-from inc import Ino
+from skin import Skin
 from stats import Stats
 from scores import Scores
 
@@ -17,15 +17,13 @@ def run():
 
     screen = pygame.display.set_mode((800, 800))
     pygame.display.set_caption("Ailen")
-    gun = Gun(screen, "дизайн/оружие/second.png")
+    skin = Skin(screen)
+    gun = Gun(screen, skin.ret_use_skin())
+
     sky = stars()
     inos = Group()
     stats = Stats()
     sc = Scores(screen, stats)
-
-    # create_arm(screen, inos, "lose", stats)
-
-    # отрисовка звёзд
 
     # музыка
     music.start_music(1)
