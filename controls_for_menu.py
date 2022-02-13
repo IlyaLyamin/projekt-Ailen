@@ -16,8 +16,8 @@ def event_menu(screen):
                 music.draw_unpause(screen)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if 200 < event.pos[0] < 600 and 250 < event.pos[1] < 400:  # play
-                import _1_lvl
-                _1_lvl._1_lvl()
+                import before_1_lvl
+                before_1_lvl.before_first_bos()
             elif 200 < event.pos[0] < 600 and 420 < event.pos[1] < 570:  # choose skin
                 import choose_skin_window
                 choose_skin_window.create_choose_skin_window()
