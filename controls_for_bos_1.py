@@ -2,7 +2,7 @@ import pygame
 import sys
 import time
 
-from bos_1 import Bos_1_
+from bos import Bos
 from bullet import Bullet
 from controls_for_free_play import pause
 from ailens_bulet import Ailens_bullet
@@ -34,16 +34,16 @@ def event(gun, bullets, screen):
                 gun.mright = False
 
 
-def create_bos_shot(screen, _time_, ino, inos_bullets):
+def create_bos_shot(screen, _time_, ino, inos_bullets, lvl):
     if 0.25 < time.time() - int(time.time()) < 0.7 and _time_.time_for_shot:
-        new_ailens_bullet = Ailens_bullet(screen, ino)
+        new_ailens_bullet = Ailens_bullet(screen, ino, lvl)
         inos_bullets.add(new_ailens_bullet)
         _time_.time_for_shot = False
     elif 0.7 < time.time() - int(time.time()) < 0.9:
         _time_.time_for_shot = True
 
 
-def gun_and_bullet(bullets, inos, inos_bullets, screen, _time_, gun, health):
+def gun_and_bullet(bullets, inos, inos_bullets, screen, _time_, gun, health, lvl):
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     bullets.update()
@@ -55,9 +55,7 @@ def gun_and_bullet(bullets, inos, inos_bullets, screen, _time_, gun, health):
     if collision:
         health.health_ino -= health.uron_player
         health.check_health()
-        print(health.health_ino)
     collision_2 = pygame.sprite.groupcollide(inos_bullets, gun, True, False)
     if collision_2:
-        health.health_player -= 5
+        health.health_player -= health.uron_ino
         health.check_health()
-        print(health.health_player)
