@@ -48,6 +48,8 @@ class Health_and_score():
 
         if self.lvl == 1:
             self.uron_ino = 5
+        elif self.lvl == 2:
+            self.uron_ino = 5
         else:
             self.uron_ino = 10
 
